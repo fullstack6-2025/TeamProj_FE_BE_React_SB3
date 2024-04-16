@@ -10,6 +10,10 @@ import com.mysite.reactbbs.member.dto.response.JoinResponse;
 import com.mysite.reactbbs.member.dto.response.LoginResponse;
 import com.mysite.reactbbs.member.exception.MemberException;
 import com.mysite.reactbbs.member.service.MemberService;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -22,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
+@Tag(name = "MemberController", description = "회원 API")
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
@@ -35,7 +39,7 @@ public class MemberController {
 		this.service = service;
 	}
 	*/
-	
+	@Operation(summary = "checkIdDuplicate() - 아이디 중복체크 API ", description = "아이디 중복체크 API")
 	@GetMapping
 	public ResponseEntity<?> checkIdDuplicate(@RequestParam("id") String id) {
 		System.out.println("아이디 중복 요청 성공 : " + id );
@@ -44,14 +48,14 @@ public class MemberController {
 		HttpStatus status = service.checkIdDuplicate(id);
 		return new ResponseEntity<>(status);
 	}
-
+	@Operation(summary = "join() - 회원가입 API ", description = "회원가입 API")
 	@PostMapping("/join")
 	public ResponseEntity<JoinResponse> join(@Valid @RequestBody JoinRequest req) {
 		System.out.println("UserController join " + new Date());
 
 		return ResponseEntity.ok(service.join(req));
 	}
-
+	@Operation(summary = "login() - 회원 로그인 API ", description = "회원 로그인 API")
 	@PostMapping("/login")
 	public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest req) {
 		System.out.println("UserController login " + new Date());
