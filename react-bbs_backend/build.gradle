@@ -24,7 +24,8 @@ repositories {
 
 dependencies {
 
-
+	// 김지훈
+	
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	
